@@ -1,11 +1,13 @@
 import Sidebar from "./components/Sidebar";
+import Main from "./components/Main";
+import DefaultScreen from "./components/DefaultScreen";
 
 function App() {
   return (
     <>
       <main className="h-screen my-8 flex gap-8">
         <Sidebar />
-        <div className="mt-24 text-center w-2/3"></div>
+        <Main />
       </main>
     </>
   );
