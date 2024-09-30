@@ -1,6 +1,6 @@
 export default function AddProject() {
   return (
-    <>
+    <div className="w-{35rem] mt-16">
     <button className="w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800" >Cancel</button>
     <button className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950">Save</button>
 
@@ -25,6 +25,6 @@ export default function AddProject() {
           class="border border-gray-300 rounded-md shadow-sm w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
-    </>
+    </div>
   );
 }
