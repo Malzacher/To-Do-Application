@@ -1,23 +1,44 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
-import Main from "./components/Main";
+import DefaultScreen from "./components/DefaultScreen";
+import AddProject from "./components/AddProject";
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState("default");
-  const [currentProjects, setCurrentProjects] = useState([]);
+  const [projectState, setProjectState] = useState({
+    setProjectId: undefined,
+    projects: [],
+  });
 
-  const handleAddProject = () => {
-    setCurrentScreen("addProject");
-  };
+  function handleStartAddProject() {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        setProjectId: null,
+      };
+    });
+  }
 
-  const handleCancelProject = () => {
-    setCurrentScreen("defaultScreen")
+  function handleCancelProject() {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        setProjectId: undefined,
+      };
+    });
+  }
+
+  let content;
+
+  if (projectState.setProjectId === null) {
+    content = <AddProject onCancelProject={handleCancelProject}/>;
+  } else if (projectState.setProjectId === undefined) {
+    content = <DefaultScreen onStartAddProject={handleStartAddProject} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar onAddProject={handleAddProject} currentProjects={currentProjects} />
-      <Main currentScreen={currentScreen} handleCancelProject={handleCancelProject}/>
+      <Sidebar onStartAddProject={handleStartAddProject} />
+      {content}
     </main>
   );
 }
