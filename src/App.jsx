@@ -27,17 +27,37 @@ function App() {
     });
   }
 
+  function handleAddProject({ title, description, dueDate }) {
+    setProjectState((prevState) => {
+      const newProject = {
+        title,
+        description,
+        dueDate,
+      };
+      return {
+        ...prevState,
+        projects: [...prevState.projects, newProject],
+      };
+    });
+    console.log(projectState);
+  }
+
   let content;
 
   if (projectState.setProjectId === null) {
-    content = <AddProject onCancelProject={handleCancelProject}/>;
+    content = (
+      <AddProject
+        onAddProject={handleAddProject}
+        onCancelProject={handleCancelProject}
+      />
+    );
   } else if (projectState.setProjectId === undefined) {
     content = <DefaultScreen onStartAddProject={handleStartAddProject} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar onStartAddProject={handleStartAddProject} />
+      <Sidebar projectData={projectState} onStartAddProject={handleStartAddProject} />
       {content}
     </main>
   );
