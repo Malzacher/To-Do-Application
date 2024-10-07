@@ -2,7 +2,7 @@ import logo from "/logo.png";
 
 export default function DefaultScreen({ onStartAddProject }) {
   return (
-    <div className="w-[35rem] text-center w-2/3">
+    <div className="w-[35rem] text-center">
       <img
         src={logo}
         alt="An empty task list"
