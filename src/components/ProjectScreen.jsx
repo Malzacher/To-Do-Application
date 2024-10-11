@@ -1,16 +1,18 @@
-export default function ProjectScreen() {
+export default function ProjectScreen({project, onRemoveProject}) {
+  console.log(project)
   return (
     <>
+    
       <div className="p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">Heading</h1>
-        <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+        <h1 className="text-2xl font-bold mb-4">{project.title}</h1>
+        <button onClick={() => onRemoveProject(project)} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
           Delete
         </button>
       </div>
 
       <div className="mt-6 p-6 bg-gray-100 rounded-lg shadow-md">
-        <span className="text-sm text-gray-600">Date</span>
-        <p className="text-base mt-2">Description</p>
+        <span className="text-sm text-gray-600">{project.dueDate}</span>
+        <p className="text-base mt-2">{project.description}</p>
       </div>
 
       <br />

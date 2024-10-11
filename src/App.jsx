@@ -69,7 +69,20 @@ function App() {
     const selectedProject = projectState.projects.find(
       (project) => project.id === projectState.setProjectId
     );
-    content = <ProjectScreen project={selectedProject} />;
+    content = (
+      <ProjectScreen
+        project={selectedProject}
+        onRemoveProject={manageRemoveProject}
+      />
+    );
+  }
+
+  function manageRemoveProject(project) {
+    setProjectState((prevState) => ({
+      ...prevState,
+      projects: prevState.projects.filter(task => task.id != project.id)
+    }));
+    projectState.setProjectId = undefined;
   }
 
   return (
