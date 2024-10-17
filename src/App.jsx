@@ -37,6 +37,7 @@ function App() {
         title,
         description,
         dueDate,
+        tasks: [],
       };
       idVal++;
       return {
@@ -73,6 +74,7 @@ function App() {
       <ProjectScreen
         project={selectedProject}
         onRemoveProject={manageRemoveProject}
+        onAddTask={manageAddTask}
       />
     );
   }
@@ -80,9 +82,20 @@ function App() {
   function manageRemoveProject(project) {
     setProjectState((prevState) => ({
       ...prevState,
-      projects: prevState.projects.filter(task => task.id != project.id)
+      projects: prevState.projects.filter((task) => task.id != project.id),
     }));
     projectState.setProjectId = undefined;
+  }
+
+  function manageAddTask(taskName) {
+    setProjectState((prevState) => {
+      const updatedState = {
+        ...prevState,
+        tasks: prevState.tasks ? [...prevState.tasks, taskName] : [taskName],
+      };
+      console.log("Updated tasks array:", updatedState.tasks); // Log the updated tasks array
+      return updatedState;
+    });
   }
 
   return (

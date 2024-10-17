@@ -1,11 +1,16 @@
-export default function ProjectScreen({project, onRemoveProject}) {
-  console.log(project)
+import { useRef } from "react";
+
+export default function ProjectScreen({ project, onRemoveProject, onAddTask }) {
+  console.log(project);
+  const taskName = useRef();
   return (
     <>
-    
       <div className="p-6 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">{project.title}</h1>
-        <button onClick={() => onRemoveProject(project)} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+        <button
+          onClick={() => onRemoveProject(project)}
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+        >
           Delete
         </button>
       </div>
@@ -21,20 +26,26 @@ export default function ProjectScreen({project, onRemoveProject}) {
         <h2 className="text-xl font-semibold mb-4">Tasks</h2>
         <input
           type="text"
+          ref={taskName}
           className="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:border-blue-500"
           placeholder="Add a new task"
         />
-        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition mb-6">
+        <button
+          onClick={() => onAddTask(taskName.current.value)}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition mb-6"
+        >
           Add Task
         </button>
 
         <ul className="list-none">
-          <li className="flex justify-between items-center p-4 border-b border-gray-200">
-            <p className="text-base">Task Name</p>
-            <button className="px-3 py-1 bg-gray-300 text-black rounded hover:bg-gray-400 transition">
-              Clear
-            </button>
-          </li>
+          {project.tasks.map((task, index) => (
+            <li key={index} className="flex justify-between items-center p-4 border-b border-gray-200">
+              <p className="text-base">{task}</p>
+              <button className="px-3 py-1 bg-gray-300 text-black rounded hover:bg-gray-400 transition">
+                Clear
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </>
