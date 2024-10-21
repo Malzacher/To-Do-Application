@@ -48,11 +48,59 @@ function App() {
   }
 
   function handleProjectClick(projectID) {
-    // You can add more functionality here later as needed
     setProjectState((prevState) => ({
       ...prevState,
       setProjectId: projectID,
     }));
+  }
+
+  function manageRemoveProject(project) {
+    setProjectState((prevState) => ({
+      ...prevState,
+      projects: prevState.projects.filter((task) => task.id !== project.id),
+    }));
+    setProjectState((prevState) => ({
+      ...prevState,
+      setProjectId: undefined,
+    }));
+  }
+
+  function manageAddTask(taskName) {
+    setProjectState((prevState) => {
+      const updatedProjects = prevState.projects.map((project) => {
+        if (project.id === prevState.setProjectId) {
+          return {
+            ...project,
+            tasks: [...project.tasks, taskName],
+          };
+        }
+        return project;
+      });
+
+      return {
+        ...prevState,
+        projects: updatedProjects,
+      };
+    });
+  }
+
+  function manageRemoveTask(taskName) {
+    setProjectState((prevState) => {
+      const updatedProjects = prevState.projects.map((project) => {
+        if (project.id === prevState.setProjectId) {
+          return {
+            ...project,
+            tasks: project.tasks.filter((task) => task !== taskName),
+          };
+        }
+        return project;
+      });
+
+      return {
+        ...prevState,
+        projects: updatedProjects,
+      };
+    });
   }
 
   let content;
@@ -75,27 +123,9 @@ function App() {
         project={selectedProject}
         onRemoveProject={manageRemoveProject}
         onAddTask={manageAddTask}
+        onRemoveTask={manageRemoveTask}
       />
     );
-  }
-
-  function manageRemoveProject(project) {
-    setProjectState((prevState) => ({
-      ...prevState,
-      projects: prevState.projects.filter((task) => task.id != project.id),
-    }));
-    projectState.setProjectId = undefined;
-  }
-
-  function manageAddTask(taskName) {
-    setProjectState((prevState) => {
-      const updatedState = {
-        ...prevState,
-        tasks: prevState.tasks ? [...prevState.tasks, taskName] : [taskName],
-      };
-      console.log("Updated tasks array:", updatedState.tasks); // Log the updated tasks array
-      return updatedState;
-    });
   }
 
   return (
